@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Pong Table</title>
+
+  <style>
+    canvas {
+      width: 800;
+      height: 500;
+      border: solid red 4px;
+    }
+
+    ;
+  </style>
+
+</head>
+
+<body id="pongTable">
+
+
+  <canvas id='canvas'>
+</canvas>
+
+  <script type="text/javascript">
+    var player1x = 10;
+    var player1y = 10;
+    var player2x = 755;
+    var player2y = 100;
+
+    var keypressed = document.getElementById('pongTable');
+
+    keypressed.addEventListener('keydown', function(evt) {
+      event.preventDefault();
+      console.log(evt.keyCode);
+      switch (evt.keyCode) {
+        case 65:
+          player1y = player1y - 10;
+          break;
+        case 90:
+          player1y = player1y + 10;
+          break;
+        case 40:
+          player2y = player2y - 10;
+          break;
+        case 38:
+          player2y = player2y + 10;
+          break;
+      }
+
+    });
+
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    canvas.width = 800;
+    canvas.height = 500;
+
+
+    // var x = 100,y=200;
+    var lb = 0,
+      rb = 800,
+      tb = 0,
+      bb = 500;
+    // var dlb = 0 ,drb=-800, tb=0, bb=-500;
+    // var dx=4,dy=2;
+    var context;
+    var dx = 4;
+    var dy = 4;
+    var y = 500;
+    var x = 4;
+    var r = 15;
+
+    function draw() {
+
+    }
+
+    function tick(dt) {
+      // clear screen
+      // var r = Math.random();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // draw rectangle
+
+      ctx.fillStyle = 'grey';
+      ctx.fillRect(player1x, player1y, 30, 100);
+
+      ctx.fillStyle = 'grey';
+      ctx.fillRect(player2x, player2y, 30, 100);
+
+      ctx.fillStyle = '#20';
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(400, 500);
+      ctx.lineTo(400, 0);
+      ctx.stroke();
+
+
+      ctx.beginPath();
+      ctx.fillStyle = "#0000ff ";
+      ctx.arc(x, y, r, 0, Math.PI * 2, true);
+      ctx.closePath();
+      ctx.fill();
+
+      x += dx;
+      if (x > rb) {
+        dx = -dx;
+        x = rb;
+      } else if (x < 0) {
+        dx = -dx;
+        x = 0;
+      }
+
+      y += dy;
+      if (y > bb) {
+        dy = -dy;
+        y = bb;
+      } else if (y < 0) {
+        dy = -dy;
+        y = 0;
+      }
+      window.requestAnimationFrame(tick);
+    }
+
+    window.requestAnimationFrame(tick);
+  </script>
+</body>
+
+</html>
